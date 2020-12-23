@@ -1,0 +1,21 @@
+main{
+    position: relative;
+}
+
+.comment{
+    position: absolute;
+    width: 20vw;
+    height: 80vh;
+left: 62vw;
+top:20vh;
+padding-left:5px;
+border-left: thin solid rgb(128, 114, 114);
+}
+
+.thick{
+    font-weight: bold;
+}
+
+.maincomment{
+    font-size: 16px;
+}

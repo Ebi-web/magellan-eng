@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+.memo{
+  /* ボックス配置指定 */
+      text-align: center;
+    width: auto;
+    height: 75vh;
+}
+
+ .flowchar{
+   width: 60%;
+   margin-left: 18%;
+font-family: 'Noto Sans JP', sans-serif;
+font-size: 16px;
+font-weight: bold;
+}
+
+.modoru{
+margin-right: 5%;
+}
+

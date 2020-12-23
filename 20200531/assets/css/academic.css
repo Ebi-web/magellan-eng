@@ -1,0 +1,34 @@
+.title{
+  position: relative;
+  padding: 0 65px;
+  text-align: center;
+}
+
+.title:before {
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  content: '';
+  background: #000;
+}
+
+.title span {
+  position: relative;
+  padding: 0 1em;
+  background: #fff;
+  font-weight: bold;
+}
+
+.winner{
+  color: #fff;
+  padding: 5%;
+  width: 50px;
+  height: 20px;
+  margin: 1 15px;
+  mix-blend-mode: multiply;
+    background: #f66;
+  border-radius: 50% 50% 50% 70%/50% 50% 70% 60%;
+
+}
