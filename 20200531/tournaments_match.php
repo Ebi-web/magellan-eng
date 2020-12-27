@@ -11,8 +11,7 @@ try {
         $_SESSION['flowstyle'] = $_GET['flow'];
         $_SESSION['topic'] = $_GET['topic'];
     endif;
-    if (!isset($_SESSION['abst_id']) || !isset($_SESSION['tName']) || !isset($_SESSION['date']) || !isset($_SESSION['flowstyle']) || !isset($_SESSION['topic'])) : header("Location:./magellan_tournaments.php");
-    endif;
+    checksession("tournaments");
     $sql = 'select * from m_ab_local WHERE abst_id=?';
     $stmt0 = $pdo->prepare($sql);
     $stmt0->execute(array($_SESSION['abst_id']));

@@ -5,11 +5,11 @@ if (empty($_SESSION['username'])) {
 }
 require_once("./functions.php");
 try {
-
     if (isset($_POST["prop"]) && isset($_POST["opp"])) :
         insert_match(0); //引数0で特定のinsertモードへ切り替え
         header('Location:./local_matches.php');
     endif;
+    checksession("tournaments");
 } catch (PDOException $e) {
     echo $e->getMessage();
     exit('試合の登録に失敗しました。ネットワークをご確認の上，再度お試しください。再びこのエラーメッセージが表示された場合，お手数ですがメインページのお問い合わせからお知らせください。');

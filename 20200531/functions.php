@@ -10,6 +10,30 @@
         // 複数回使用する各種関数をまとめた
         // 以下は関数群
 
+
+        //必要なSESSIONデータがあるかどうか検査する関数
+        function checksession($flag)
+        {
+            if ($flag == "global") : if (!isset($_SESSION["username"]) || !isset($_SESSION["userid"])) : header("Location:./Login.php");
+                endif;
+            elseif ($flag == "tournaments") :
+                $arr = array(
+                    $_SESSION['abst_id'],
+                    $_SESSION['tName'],
+                    $_SESSION['date'],
+                    $_SESSION['flowstyle'],
+                    $_SESSION['topic']
+                );
+                if (count($arr) != 5) : header("Location:./magellan_tournaments.php");
+                endif;;
+            elseif ($flag == "schools") :    if (!isset($_SESSION["name"]) || !isset($_SESSION["id"])) : header("Location:./schools.php");
+                endif;
+            elseif ($flag == "matches") : $arr = array($_SESSION["m_id"], $_SESSION["prop"], $_SESSION["opp"], $_SESSION["winner"], $_SESSION["judges"]);
+                if (count($arr) != 5) : header("Location:../magellan_tournaments.php");
+                endif;
+            endif;
+        }
+
         // othersテーブルに未登録の学校名を登録するための関数
         function other($register)
         {

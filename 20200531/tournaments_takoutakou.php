@@ -2,6 +2,8 @@
 session_start();
 try {
     require_once("./functions.php");
+    // 必要なsessionデータがあるか検査
+    checksession("tournaments");
     fetch_others(); //プルダウンメニューの選択肢をfetchする
     if (isset($_POST['propchecker'])) :
 

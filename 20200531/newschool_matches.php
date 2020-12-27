@@ -7,9 +7,9 @@ try {
     if (isset($_GET['name']) && isset($_GET['id'])) :
         $_SESSION['name'] = h($_GET['name']);
         $_SESSION['id'] = h($_GET['id']);
-    elseif (!isset($_SESSION["name"]) || !isset($_SESSION["id"])) :
-        header("Location:./schools.php");
     endif;
+    //必要なsessionが揃っているか検査。だめなら1つ前のページへ戻す。
+    checksession("schools");
     // 特定相手校が関係する大会のみを取得する機構
     $sql = 'select * from m_ab_local WHERE proposition=? OR opposition=?';
     $stmt = $pdo->prepare($sql);

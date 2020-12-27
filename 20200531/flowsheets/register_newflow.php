@@ -3,6 +3,8 @@ if (empty($_SESSION['username'])) {
   header("Location:../Login.php");
 }
 require_once("../functions.php");
+//必要なsessionが揃っているか検査
+checksession("matches");
 header('X-Content-Type-Options: nosniff');
 try {
   // フローシートの様式に合わせて変数を設定

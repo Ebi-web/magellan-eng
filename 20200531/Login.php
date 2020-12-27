@@ -6,13 +6,13 @@ try {
   if (isset($_POST['id']) && isset($_POST['password'])) :
     $id = $_POST['id'];
     $password = $_POST['password'];
-    if (!preg_match("/^[a-zA-Z0-9]{5,30}$/", $id) || !preg_match("/^[a-zA-Z0-9]{8,}$/", $password)) : throw new Exception("IDまたはパスワードが不正です。");
+    if (!preg_match("/^[a-zA-Z0-9]{5,30}$/", $id) || !preg_match("#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#", $password)) : throw new Exception("IDまたはパスワードが不正です。");
     endif;
     $sql = "select * from users where checker=?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array($id));
     $uda = $stmt->fetchAll();
-    if (!empty($uda) || !$password = password_verify($password, $temp[0]["password"])) :
+    if (empty($uda) || !$password = password_verify($password, $uda[0]["password"])) :
       throw new Exception("データベースに入力されたレコードがありません");
     endif;
     $userdata = $uda[0];
@@ -36,7 +36,7 @@ try {
     endif;
     if (!filter_var($_POST["register_email"], FILTER_VALIDATE_EMAIL)) : throw new Exception("登録されたメールアドレスの形式が不正です");
     endif;
-    if (!preg_match("/^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$/", $_POST["register_password"])) : throw new Exception("パスワードは半角英数字(大文字可),半角記号($,@など)から8桁以上で登録してください");
+    if (!preg_match("#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#", $_POST["register_password"])) : throw new Exception("パスワードは半角英数字(大文字可),半角記号($,@など)から8桁以上で登録してください");
     endif;
     $sql = "SELECT * from users where checker=?";
     $stmt = $pdo->prepare($sql);
@@ -58,27 +58,28 @@ try {
   exit("会員登録に失敗しました。");
 }
 //パスワード忘れた人用の処理
-try {
-  if (isset($_POST["forget"])) :
-    if (!filter_var($email = $_POST["forget"], FILTER_VALIDATE_EMAIL)) : throw new Exception("メールアドレスの形式が不正です");
-    endif;
-    $sql = "select * from users where mailaddress=?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array($email));
-    $is_exist = $stmt->fetchAll();
-    $to = $is_exist[0]["mailaddress"];
-    $subject = "【Magellan】ID/パスワード変更のお手続き";
-    $message = "こちらは英語ディベーター支援アプリMagellanです。ID・パスワードの変更手続きはこちらのリンクからお願いします。" . "なお，このメールが身に覚えのない方はそのまま破棄して頂くか，開発者のTwitter(@eng_toshiaki)までご一報ください。";
-    mb_language("Japanese");
-    mb_internal_encoding("UTF-8");
-    mb_send_mail($to, $subject, $message);
-    exit("このメールアドレスがMagellanのデータベース内にある場合は、メールでリンクをお送りします");
+// try {
+//   if (isset($_POST["forget"])) :
+//     if (!filter_var($email = $_POST["forget"], FILTER_VALIDATE_EMAIL)) : throw new Exception("メールアドレスの形式が不正です");
+//     endif;
+//     $sql = "select * from users where mailaddress=?";
+//     $stmt = $pdo->prepare($sql);
+//     $stmt->execute(array($email));
+//     $is_exist = $stmt->fetchAll();
+//     $to = $is_exist[0]["mailaddress"];
+//     $subject = "【Magellan】ID/パスワード変更のお手続き";
+//     $url = "";
+//     $message = "こちらは英語ディベーター支援アプリMagellanです。ID・パスワードの変更手続きはこちらのリンクからお願いします。" . $url . "なお，このメールが身に覚えのない方はそのまま破棄して頂くか，開発者のTwitter(@eng_toshiaki)までご一報ください。";
+//     mb_language("Japanese");
+//     mb_internal_encoding("UTF-8");
+//     mb_send_mail($to, $subject, $message);
+//     exit("このメールアドレスがMagellanのデータベース内にある場合は、メールでリンクをお送りします");
 
-  endif;
-} catch (\Throwable $e) {
-  $e->getMessage();
-  echo "もう一度お試し頂くか，開発者のTwitter(@eng_toshiaki)までご連絡ください";
-}
+//   endif;
+// } catch (\Throwable $e) {
+//   $e->getMessage();
+//   echo "もう一度お試し頂くか，開発者のTwitter(@eng_toshiaki)までご連絡ください";
+// }
 
 ?>
 <!doctype html>
@@ -111,7 +112,7 @@ try {
     <label for="inputEmail" class="sr-only">ID</label>
     <input type="text" id="inputEmail" class="form-control" placeholder="ID" minlength="5" maxlength="30" required autofocus name="id">
     <label for="inputPassword0" class="sr-only">Password</label>
-    <input type="password" id="inputPassword0" class="form-control" placeholder="Password" minlength="8" pattern="^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="password">
+    <input type="password" id="inputPassword0" class="form-control" placeholder="Password" minlength="8" pattern="#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="password">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     <button class="btn btn-lg btn-secondary btn-block" onclick="formswitch(0)">User Registration</button>
     <button class="btn btn-lg btn-success btn-block" onclick="formswitch(2)">Forget ID or Password?</button>
@@ -130,7 +131,7 @@ try {
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required name="register_email">
     <label for="inputPassword1" class="sr-only">Password</label>
-    <input type="password" id="inputPassword1" class="form-control" placeholder="Password" minlength="8" pattern="^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="register_password">
+    <input type="password" id="inputPassword1" class="form-control" placeholder="Password" minlength="8" pattern="#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="register_password">
     <span id="result"></span>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register!</button>
     <button class="btn btn-lg btn-secondary btn-block" onclick="formswitch(1)">Switch to Login</button>
@@ -138,7 +139,8 @@ try {
   </form>
   <!-- ここまで新規ユーザー登録 -->
   <!-- ここからPW忘れたユーザーの対応ページ -->
-  <form class="form-signin erase" method="post" id="forget">
+  <!-- パスワード再設定用のページのurlに対応するページがないため未公開(20201227現在) -->
+  <!-- <form class="form-signin erase" method="post" id="forget">
     <img class="mb-4" src="./assets/img/ペンギン.png" alt="ペンギン" width="30%" height="40%">
     <h1 class="h3 mb-3 font-weight-normal">Reset your Password</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
@@ -146,7 +148,7 @@ try {
     <button class="btn btn-lg btn-primary btn-block" type="submit">Confirm</button>
     <button class="btn btn-lg btn-secondary btn-block" onclick="formswitch(1)">Switch to Login</button>
     <p class="mt-5 mb-3 text-muted">&copy; Toshiaki Ebisawa 2020</p>
-  </form>
+  </form> -->
   <!-- ここまでPW忘れたユーザーの対応ページ -->
 
   <!-- Optional JavaScript -->
@@ -161,22 +163,22 @@ try {
     function formswitch(checker) {
       let login = document.getElementById("login");
       let registration = document.getElementById("registration");
-      let forget = document.getElementById("forget")
+      // let forget = document.getElementById("forget")
       if (checker === 0) {
         login.classList.add("erase");
-        forget.classList.add("erase");
+        // forget.classList.add("erase");
         registration.classList.remove("erase");
       }
       if (checker === 1) {
         login.classList.remove("erase");
-        forget.classList.add("erase");
+        // forget.classList.add("erase");
         registration.classList.add("erase");
       }
-      if (checker === 2) {
-        login.classList.add("erase");
-        forget.classList.remove("erase");
-        registration.classList.add("erase");
-      }
+      // if (checker === 2) {
+      //   login.classList.add("erase");
+      //   forget.classList.remove("erase");
+      //   registration.classList.add("erase");
+      // }
     }
   </script>
 </body>

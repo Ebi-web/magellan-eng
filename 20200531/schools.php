@@ -1,9 +1,7 @@
 <?php
 session_start();
-if (!$_SESSION['username'] || !$_SESSION['userid']) {
-    header("Location:./Login.php");
-}
 require_once("./functions.php");
+checksession("global");
 try {
     fetch_others();
 } catch (Exception | PDOException $e) {

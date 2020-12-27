@@ -5,6 +5,8 @@ if (empty($_SESSION['username'])) {
 }
 require_once("../functions.php");
 try {
+    //必要なsessionが揃っているか検査
+    checksession("matches");
     // フローシートへ代入するスピーチ群をfetch
     fetch_speech();
     // 特定の試合に登録された画像群をfetch 

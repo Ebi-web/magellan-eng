@@ -12,6 +12,8 @@ try {
         $_SESSION['flowstyle'] = $_GET['flow'];
         $_SESSION['topic'] = $_GET['topic'];
     }
+    // 必要なsessionが揃っているか検査
+    checksession("tournaments");
     // 表示する試合を$matchに格納
     $sql0 = 'select * from m_ab_local WHERE abst_id=? AND (proposition=? OR opposition=?)';
     $stmt0 = $pdo->prepare($sql0);

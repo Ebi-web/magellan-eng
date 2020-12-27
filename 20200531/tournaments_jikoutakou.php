@@ -2,6 +2,8 @@
 session_start();
 try {
     require_once("./functions.php");
+    // 必要なsessionデータがあるか検査
+    checksession("tournaments");
     // othersテーブルからプルダウンの選択肢をfetchする
     fetch_others();
     // このifブロックはバリデーション

@@ -2,6 +2,7 @@
 if (empty($_SESSION['username'])) {
     header("Location:../Login.php");
 }
+require_once("../functions.php");
 if (isset($_GET['id'])) :
     $_SESSION['m_id'] = $_GET['id'];
     $_SESSION['prop'] = $_GET['prop'];
@@ -9,7 +10,8 @@ if (isset($_GET['id'])) :
     $_SESSION['winner'] = $_GET['winner'];
     $_SESSION['judges'] = $_GET['judges'];
 endif;
-require_once("../functions.php");
+// 必要なSESSIONが揃っているか検査する
+checksession("matches");
 try {
     // DBから表示するスピーチと画像をfetchしてくる
     fetch_speech();

@@ -16,9 +16,9 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array($_POST["taikaimei"], $_POST["nittei"], $_POST["flowstyle"], $_POST["gidai"], $_SESSION["userid"]));
         header("Location:./magellan_tournaments.php");
-
+    else : throw new Exception("必要なデータが送信されていません。");
     endif;
-} catch (PDOException $e) {
+} catch (Exception | PDOException $e) {
     echo $e->getMessage();
     exit("ERROR!ネットワーク接続をご確認の上，再度お試しください。再びこのエラーが表示された場合には，お手数ですがメインページのお問い合わせからお知らせください。");
 }

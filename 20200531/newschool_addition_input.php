@@ -1,7 +1,6 @@
 <?php session_start();
-if (empty($_SESSION['username'])) {
-    header("Location:./Login.php");
-}
+require_once("./functions.php");
+checksession("global");
 ?>
 <!doctype html>
 <html lang="ja">

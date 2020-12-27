@@ -5,6 +5,8 @@ if (empty($_SESSION['username'])) {
 }
 require_once("./functions.php");
 try {
+    //必要なsessionがあるか検査
+    checksession("tournaments");
     // ターゲット校以外の高校をfetchしてプルダウンメニューへ送る
     $sql1 = "select * from others WHERE holder_id=? AND id not in (?)";
     $stmt1 = $pdo->prepare($sql1);
