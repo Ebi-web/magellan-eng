@@ -1,17 +1,17 @@
 <?php session_start();
-if (empty($_SESSION['username'])) {
-    header("Location:./Login.php");
-}
 require_once("./functions.php");
 try {
     // フローシートの表示に関わるセッションを用意
     if (isset($_GET['id']) && isset($_GET['name']) && isset($_GET['date'])) {
         $_SESSION['abst_id'] = $_GET['id'];
-        $_SESSION['tName'] = $_GET['name'];
-        $_SESSION['date'] = $_GET['date'];
+        $_SESSION['tName'] = h($_GET['name']);
+        $_SESSION['date'] = h($_GET['date']);
         $_SESSION['flowstyle'] = $_GET['flow'];
-        $_SESSION['topic'] = $_GET['topic'];
+        $_SESSION['topic'] = h($_GET['topic']);
     }
+    // sessionのデータ型を検査
+    if (!is_numeric($_SESSION["abst_id"]) || !is_numeric($_SESSION["flowstyle"]) || !preg_match("/^\d{4}-\d\d-\d\d$/", $_SESSION["date"])) : throw new Exception("不正なパラメータです");
+    endif;
     // 必要なsessionが揃っているか検査
     checksession("tournaments");
     // 表示する試合を$matchに格納
@@ -148,7 +148,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round1['id'] ?>&prop=<?= $round1['proposition'] ?>&opp=<?= $round1['opposition'] ?>&winner=<?= $round1['winner'] ?>&judges=<?= $round1['judges'] ?>'>
                                                 <?php if ($round1['proposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round1['proposition']);
                                                 }
@@ -158,7 +158,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round1['id'] ?>&prop=<?= $round1['proposition'] ?>&opp=<?= $round1['opposition'] ?>&winner=<?= $round1['winner'] ?>&judges=<?= $round1['judges'] ?>'>
                                                 <?php if ($round1['opposition'] == 0) {
-                                                    h($_SESSION['username']);
+                                                    $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round1['opposition']);
                                                 } ?>
@@ -169,7 +169,7 @@ try {
                                                 <?php if (is_null($round1['winner'])) {
                                                     echo '引き分けまたは勝敗不明';
                                                 } elseif ($round1['winner'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round1['winner']);
                                                 } ?>
@@ -203,7 +203,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round2['id'] ?>&prop=<?= $round2['proposition'] ?>&opp=<?= $round2['opposition'] ?>&winner=<?= $round2['winner'] ?>&judges=<?= $round2['judges'] ?>'>
                                                 <?php if ($round2['proposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round2['proposition']);
                                                 }
@@ -213,7 +213,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round2['id'] ?>&prop=<?= $round2['proposition'] ?>&opp=<?= $round2['opposition'] ?>&winner=<?= $round2['winner'] ?>&judges=<?= $round2['judges'] ?>'>
                                                 <?php if ($round2['opposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round2['opposition']);
                                                 } ?>
@@ -224,7 +224,7 @@ try {
                                                 <?php if (is_null($round2['winner'])) {
                                                     echo '引き分けまたは勝敗不明';
                                                 } elseif ($round2['winner'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round2['winner']);
                                                 } ?>
@@ -258,7 +258,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round3['id'] ?>&prop=<?= $round3['proposition'] ?>&opp=<?= $round3['opposition'] ?>&winner=<?= $round3['winner'] ?>&judges=<?= $round3['judges'] ?>'>
                                                 <?php if ($round3['proposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round3['proposition']);
                                                 }
@@ -268,7 +268,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round3['id'] ?>&prop=<?= $round3['proposition'] ?>&opp=<?= $round3['opposition'] ?>&winner=<?= $round3['winner'] ?>&judges=<?= $round3['judges'] ?>'>
                                                 <?php if ($round3['opposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round3['opposition']);
                                                 } ?>
@@ -279,7 +279,7 @@ try {
                                                 <?php if (is_null($round3['winner'])) {
                                                     echo '引き分けまたは勝敗不明';
                                                 } elseif ($round3['winner'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round3['winner']);
                                                 } ?>
@@ -312,7 +312,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round4['id'] ?>&prop=<?= $round4['proposition'] ?>&opp=<?= $round4['opposition'] ?>&winner=<?= $round4['winner'] ?>&judges=<?= $round4['judges'] ?>'>
                                                 <?php if ($round4['proposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round4['proposition']);
                                                 }
@@ -322,7 +322,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round4['id'] ?>&prop=<?= $round4['proposition'] ?>&opp=<?= $round4['opposition'] ?>&winner=<?= $round4['winner'] ?>&judges=<?= $round4['judges'] ?>'>
                                                 <?php if ($round4['opposition'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round4['opposition']);
                                                 } ?>
@@ -334,7 +334,7 @@ try {
                                                     echo '引き分けまたは勝敗不明';
                                                 }
                                                 if ($round4['winner'] == 0) {
-                                                    echo h($_SESSION['username']);
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round4['winner']);
                                                 } ?>

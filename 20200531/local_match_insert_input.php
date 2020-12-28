@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (empty($_SESSION['username'])) {
-    header("Location:./Login.php");
-}
 require_once("./functions.php");
 try {
     if (isset($_POST["prop"]) && isset($_POST["opp"])) :

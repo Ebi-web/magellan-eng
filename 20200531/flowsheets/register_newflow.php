@@ -1,7 +1,4 @@
 <?php session_start();
-if (empty($_SESSION['username'])) {
-  header("Location:../Login.php");
-}
 require_once("../functions.php");
 //必要なsessionが揃っているか検査
 checksession("matches");

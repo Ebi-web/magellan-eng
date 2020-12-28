@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <td>Motion:</td>
-            <td><?php if (isset($_SESSION['topic'])) : echo h($_SESSION['topic']);
+            <td><?php if (isset($_SESSION['topic'])) : echo $_SESSION['topic'];
                 else : echo 'Unregistered';
                 endif; ?></td>
             <td></td>
@@ -60,7 +60,7 @@
         </tr>
         <tr>
             <td>Date:</td>
-            <td><?= h($_SESSION['date']) ?></td>
+            <td><?= $_SESSION['date'] ?></td>
             <td></td>
             <td></td>
             <td></td>
@@ -74,17 +74,17 @@
         </tr>
         <tr>
             <td>Prop.</td>
-            <td nowrap><?php if ($_SESSION['prop'] == 0) : echo h($_SESSION['username']);
+            <td nowrap><?php if ($_SESSION['prop'] == 0) : echo $_SESSION['username'];
                         else : thirdparty($_SESSION["prop"]);
                         endif; ?></td>
             <td>vs.</td>
             <td>Opp.</td>
-            <td nowrap><?php if ($_SESSION['opp'] == 0) : echo h($_SESSION['username']);
+            <td nowrap><?php if ($_SESSION['opp'] == 0) : echo $_SESSION['username'];
                         else : thirdparty($_SESSION["opp"]);
                         endif; ?></td>
             <td></td>
             <td>Judges:</td>
-            <td nowrap><?php if (isset($_SESSION['judges'])) : echo h($_SESSION['judges']);
+            <td nowrap><?php if (isset($_SESSION['judges'])) : echo $_SESSION['judges'];
                         else : echo 'Unregistered';
                         endif; ?></td>
             <td></td>

@@ -21,7 +21,7 @@ try {
     //fetchColumn();は特定のcolumnを取得
     if ($name != "") :
       $_SESSION['userid'] = $userid;
-      $_SESSION['username'] = $name;
+      $_SESSION['username'] = h($name);
       header('Location:./magellan_mainpage.php');
     endif;
   endif;
@@ -50,7 +50,7 @@ try {
     $stmt1->execute(array($_POST["register_id"], $_POST["name"], $_POST["register_email"], $password));
     $new_userid = $pdo->lastInsertId();
     $_SESSION['userid'] = $new_userid;
-    $_SESSION['username'] = $_POST["name"];
+    $_SESSION['username'] = h($_POST["name"]);
     header("Location:./magellan_mainpage.php");
   endif;
 } catch (Exception | PDOException $e) {

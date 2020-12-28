@@ -8,8 +8,14 @@ if (isset($_GET['id'])) :
     $_SESSION['prop'] = $_GET['prop'];
     $_SESSION['opp'] = $_GET['opp'];
     $_SESSION['winner'] = $_GET['winner'];
-    $_SESSION['judges'] = $_GET['judges'];
+    $_SESSION['judges'] = h($_GET['judges']);
 endif;
+$arr = array($_SESSION["m_id"], $_SESSION["prop"], $_SESSION["opp"], $_SESSION["winner"]); //整数でなければならないsessionの配列
+//整数かどうかループで検査。だめなら例外。
+foreach ($arr as $value) :
+    if (!is_numeric($value)) : throw new Exception("不正なパラメータです");
+    endif;
+endforeach;
 // 必要なSESSIONが揃っているか検査する
 checksession("matches");
 try {
@@ -112,7 +118,7 @@ try {
                 <?php
                 if (empty($match) && empty($photo)) : ?>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2"><?= h($_SESSION['tName']) ?></h1>
+                        <h1 class="h2"><?= $_SESSION['tName'] ?></h1>
                         <div>
                             <button style="border: dashed 2px; margin-right:4px;" onclick="deleteCheck()" class="btn btn-light"><img src="../assets/img/ごみ箱のフリーアイコン.png"></button>
                             <button onclick="location.href='./register_newflow.php'" class="btn btn-outline-info">フローを登録</button>
@@ -128,7 +134,7 @@ try {
                     </div>
                 <?php else : ?>
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2"><?= h($_SESSION['tName']) ?></h1>
+                        <h1 class="h2"><?= $_SESSION['tName'] ?></h1>
                         <div>
                             <button style="border: dashed 2px; margin-right:4px;" onclick="deleteCheck()" class="btn btn-light"><img src="../assets/img/ごみ箱のフリーアイコン.png"></button>
                             <button onclick="location.href='./flowsheet_modify.php'" class="btn btn-outline-info">フローを修正</button>

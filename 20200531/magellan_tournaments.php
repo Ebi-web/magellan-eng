@@ -107,7 +107,7 @@ try {
           <button class="btn btn-outline-primary" onclick="location.href='./nsc_matches_input.php'">新規大会追加</button>
         </div>
         <div align="center">
-          <h2><?= h($_SESSION['username']) ?>の大会別一覧</h2>
+          <h2><?= $_SESSION['username'] ?>の大会別一覧</h2>
           <h3>大会別のフロー登録・管理はここから行えます</h3>
         </div>
 

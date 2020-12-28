@@ -1,13 +1,11 @@
 <?php session_start();
 require_once("./functions.php");
-if (empty($_SESSION['username'])) {
-    header("Location:./Login.php");
-}
 try {
     if (isset($_GET['name']) && isset($_GET['id'])) :
         $_SESSION['name'] = h($_GET['name']);
-        $_SESSION['id'] = h($_GET['id']);
+        $_SESSION['id'] = $_GET['id'];
     endif;
+    if(!is_numeric($_SESSION["id"])):throw new Exception("不正なパラメータです");
     //必要なsessionが揃っているか検査。だめなら1つ前のページへ戻す。
     checksession("schools");
     // 特定相手校が関係する大会のみを取得する機構
