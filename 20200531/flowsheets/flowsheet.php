@@ -1,7 +1,4 @@
 <?php session_start();
-if (empty($_SESSION['username'])) {
-    header("Location:../Login.php");
-}
 require_once("../functions.php");
 if (isset($_GET['id'])) :
     $_SESSION['m_id'] = $_GET['id'];

@@ -1,7 +1,6 @@
 <?php
 session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=samurai;charset=utf8', 'Toshiaki', 'ume1027');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+require_once("./functions.php");
 // 大会データを削除する機構
 try {
     $sql = 'delete from t_abst_local WHERE id=?';
