@@ -5,5 +5,5 @@
 // 	$uri = 'http://';
 // }
 // $uri .= $_SERVER['HTTP_HOST'];
-header('Location:./htdocs/login.php');
+header('Location:./Login.php');
 exit;
