@@ -5,7 +5,8 @@ try {
         $_SESSION['name'] = h($_GET['name']);
         $_SESSION['id'] = $_GET['id'];
     endif;
-    if(!is_numeric($_SESSION["id"])):throw new Exception("不正なパラメータです");
+    if (!is_numeric($_SESSION["id"])) : throw new Exception("不正なパラメータです");
+    endif;
     //必要なsessionが揃っているか検査。だめなら1つ前のページへ戻す。
     checksession("schools");
     // 特定相手校が関係する大会のみを取得する機構

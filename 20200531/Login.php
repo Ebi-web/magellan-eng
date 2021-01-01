@@ -6,7 +6,7 @@ try {
   if (isset($_POST['id']) && isset($_POST['password'])) :
     $id = $_POST['id'];
     $password = $_POST['password'];
-    if (!preg_match("/^[a-zA-Z0-9]{5,30}$/", $id) || !preg_match("#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#", $password)) : throw new Exception("IDまたはパスワードが不正です。");
+    if (!preg_match("/^[a-zA-Z0-9]{5,30}$/", $id) || !preg_match("/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/", $password)) : throw new Exception("IDまたはパスワードが不正です。");
     endif;
     $sql = "select * from users where checker=?";
     $stmt = $pdo->prepare($sql);
@@ -36,7 +36,7 @@ try {
     endif;
     if (!filter_var($_POST["register_email"], FILTER_VALIDATE_EMAIL)) : throw new Exception("登録されたメールアドレスの形式が不正です");
     endif;
-    if (!preg_match("#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#", $_POST["register_password"])) : throw new Exception("パスワードは半角英数字(大文字可),半角記号($,@など)から8桁以上で登録してください");
+    if (!preg_match("/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/", $_POST["register_password"])) : throw new Exception("パスワードは半角英数字(大文字可),半角記号($,@など)から8桁以上で登録してください");
     endif;
     $sql = "SELECT * from users where checker=?";
     $stmt = $pdo->prepare($sql);
@@ -112,7 +112,7 @@ try {
     <label for="inputEmail" class="sr-only">ID</label>
     <input type="text" id="inputEmail" class="form-control" placeholder="ID" minlength="5" maxlength="30" required autofocus name="id">
     <label for="inputPassword0" class="sr-only">Password</label>
-    <input type="password" id="inputPassword0" class="form-control" placeholder="Password" minlength="8" pattern="#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="password">
+    <input type="password" id="inputPassword0" class="form-control" placeholder="Password" minlength="8" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{8,}$" title="The password requires both alphabets and at least one digit" required name="password">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     <button class="btn btn-lg btn-secondary btn-block" onclick="formswitch(0)">User Registration</button>
     <button class="btn btn-lg btn-success btn-block" onclick="formswitch(2)">Forget ID or Password?</button>
@@ -131,7 +131,7 @@ try {
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required name="register_email">
     <label for="inputPassword1" class="sr-only">Password</label>
-    <input type="password" id="inputPassword1" class="form-control" placeholder="Password" minlength="8" pattern="#^[a-zA-Z0-9!-/:-@¥[-`{-~]{8,}$#" title="半角英数字(大文字可),半角記号(@,$など)から8桁以上" required name="register_password">
+    <input type="password" id="inputPassword1" class="form-control" placeholder="Password" minlength="8" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{8,}$" title="The password requires both alphabets and at least one digit" required name="register_password">
     <span id="result"></span>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register!</button>
     <button class="btn btn-lg btn-secondary btn-block" onclick="formswitch(1)">Switch to Login</button>

@@ -10,7 +10,7 @@ endif;
 $arr = array($_SESSION["m_id"], $_SESSION["prop"], $_SESSION["opp"], $_SESSION["winner"]); //整数でなければならないsessionの配列
 //整数かどうかループで検査。だめなら例外。
 foreach ($arr as $value) :
-    if (!is_numeric($value)) : throw new Exception("不正なパラメータです");
+    if (!is_numeric($value) && $value !== "") : throw new Exception("不正なパラメータです");
     endif;
 endforeach;
 // 必要なSESSIONが揃っているか検査する

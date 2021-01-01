@@ -81,11 +81,11 @@ try {
        ex.:Postal services
       </textarea>
                 <?php foreach ($match as $matches) : if ($k == 0) : ?><big><?= $m ?>枚目</big>
-                        <button type="submit" form="delete" name="delete" value=<?= $m ?> class="btn btn-info"><?= $m ?>枚目を削除する</button>
+                        <button type="submit" form="delete" name="delete" value=<?= $m ?> class="btn btn-info">このフローシートを削除する</button>
                     <?php endif; ?>
                     <div class='form-group'>
                         <label><?= $role[$k] ?></label>
-                        <textarea name="chars[]" rows="7" maxlength="500" class="form-control"><?= $matches['char_info'] ?></textarea>
+                        <textarea name="chars[]" rows="7" maxlength="1000" class="form-control"><?= $matches['char_info'] ?></textarea>
                     </div>
                     <div class="input-group">
                         <div class="custom-file">
@@ -136,8 +136,7 @@ try {
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="inlineCheckbox2" value="<?= $_SESSION['opp'] ?>" name="winner" <?php if ($_SESSION['opp'] === $_SESSION['winner']) : echo 'checked';
-                                                                                                                                    endif; ?>>
-                    <label class="form-check-label" for="inlineCheckbox2"><?= $neg ?></label>
+                                                                                                                                    endif; ?> <label class="form-check-label" for="inlineCheckbox2"><?= $neg ?></label>
                 </div>
             </legend>
             <label for="resolved">Resolved(議題)の修正</label>

@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="./academic.css" rel="stylesheet">
+    <link href="../assets/css/academic.css" rel="stylesheet">
     <title>フローシート</title>
 </head>
 
@@ -169,27 +169,24 @@
         <tr>
         </tr>
         <tr>
+
+
+        <tr>
             <td colspan="9">POI&amp;MEMO</td>
         </tr>
         <tr>
-            <td colspan="9" rowspan="5">
-                <table>
-                    <tr>
-                        <td colspan="9">POI&amp;MEMO</td>
-                    </tr>
-                    <tr>
-                        <td colspan="9" rowspan="5"><?= h($match[$j]['char_info']) ?> <?php if (isset($match[$j]['audio'])) : ?><a href="../assets/audio/<?= $match[$j]['audio'] ?>"><img src='../assets/img/music.jpeg'></a><?php endif; ?></td>
-                    </tr>
-                    <tr>
-                    </tr>
-                    <tr>
-                    </tr>
-                    <tr>
-                    </tr>
-                    <tr>
-                    </tr>
-                </table>
-            </td>
+            <td colspan="9" rowspan="5"><?= h($match[$j]['char_info']) ?> <?php if (isset($match[$j]['audio'])) : ?><a href="../assets/audio/<?= $match[$j]['audio'] ?>"><img src='../assets/img/music.jpeg'></a><?php endif; ?></td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+        </tr>
+
+
         </tr>
         <tr>
         </tr>

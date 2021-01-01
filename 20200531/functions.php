@@ -34,12 +34,23 @@
             endif;
         }
 
+        //HTTPヘッダインジェクションの原因となる%0d,%0aを禁止。リクエストボディ破壊の原因になるクォーテーションマークも禁止
+        function httpHeaderInjection($subject)
+        {
+            $patterns = array("/.*\n.*/", '/.*".*/', "/.*'.*/");
+            foreach ($patterns as $pattern) :
+                if (preg_match($pattern, $subject) === 1) : throw new Exception("システムエラーの原因となるためクォーテーションマークと一部の特殊文字は登録できません");
+                endif;
+            endforeach;
+        }
+
         // othersテーブルに未登録の学校名を登録するための関数
         function other($register)
         {
             global $pdo, $return;
             if (mb_strwidth($register) > 30) : throw new Exception("校名は半角30字以内で入力してください。");
             endif;
+            httpHeaderInjection($register);
             $sql = 'insert into others values(null,?,?)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array($_SESSION['userid'], $register));
@@ -77,6 +88,7 @@
             $winner = null;
             validate_judge(); //ジャッジをバリデーション
             validate_round(); //ラウンド数をバリデーション  
+            httpHeaderInjection($_POST['judges']);
             switch ($flag):
                 case 0:
                     switch ($_POST["prop"]):
@@ -113,6 +125,7 @@
                             $prop = $_POST['prop'];
                             break;
                         case 2:
+                            httpHeaderInjection($_POST['prop']);
                             $prop = other($_POST['prop']);
                             break;
                         default:
@@ -127,6 +140,7 @@
                             $opp = $_POST['opp'];
                             break;
                         case 2:
+                            httpHeaderInjection($_POST['opp']);
                             $opp = other($_POST['opp']);
                             break;
                         default:
@@ -153,6 +167,7 @@
                             $prop = $_POST['prop'];
                             break;
                         case 1:
+                            httpHeaderInjection($_POST['prop']);
                             $prop = other($_POST['prop']);
                             break;
                         default:
@@ -163,6 +178,7 @@
                             $opp = $_POST['opp'];
                             break;
                         case 1:
+                            httpHeaderInjection($_POST['opp']);
                             $opp = other($_POST['opp']);
                             break;
                         default:
@@ -365,7 +381,7 @@
                     $j++;
                 endforeach;
                 $stmt->closeCursor();
-                $j = $j - ($c - 1); //$jを登録すべき最初のnoに戻す
+                $j = $j - $c; //$jを登録すべき最初のnoに戻す
                 $sql = 'update flowsheet_local set audio=? WHERE m_id=? AND no=?';
                 $stmt = $pdo->prepare($sql);
                 foreach ($fileName as $audio) :
@@ -446,9 +462,12 @@
                 if (mb_strwidth($_POST["judges"]) > 20 || mb_strwidth($_POST["resolved"]) > 150) : throw new Exception("それぞれ，ジャッジは半角20字，議題は半角150字以内で入力してください。(スペース含む)");
                 endif;
                 // 勝者の値がnullまたは0以上の整数であるかどうかチェック
-                if (!is_null($_POST["winner"]) && !preg_match("^[0-9][1-9]*$", $_POST["winner"])) :
+                if (!is_null($_POST["winner"]) && !preg_match("/^[0-9][1-9]*$/", $_POST["winner"])) :
                     throw new Exception("勝利サイドに関する入力フォームが不正に操作されたため，処理を停止しました。");
                 endif;
+                // ジャッジとtopicに禁止表現が含まれていないかチェック
+                httpHeaderInjection($_POST['judges']);
+                httpHeaderInjection($_POST['topic']);
                 $sql = 'update m_ab_local set winner=? WHERE id=?;update m_ab_local set judges=? WHERE id=?;update t_abst_local set topic=? WHERE id=?';
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array($_POST['winner'], $_SESSION['m_id'], $_POST['judges'], $_SESSION['m_id'], $_POST['resolved'], $_SESSION['abst_id']));

@@ -84,7 +84,7 @@ try {
         foreach ($role as $roles) : ?>
           <div class='form-group'>
             <label><?= $roles ?></label>
-            <textarea name=" chars[]" rows="7" class="form-control" maxlength="500"></textarea>
+            <textarea name=" chars[]" rows="7" class="form-control" maxlength="1000"></textarea>
           </div>
           <div class="input-group">
             <div class="custom-file">

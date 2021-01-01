@@ -45,7 +45,7 @@ try {
 <body>
     <h1>新規試合登録(対自校のみ)</h1>
     <strong>登録ボタンは一度だけ押してください。また，登録後にブラウザの戻るボタンを使わないでください。</strong>
-    <form method="post" name="register" onsubmit="return check()">
+    <form method="post" name="register">
         <fieldset>
             <legend class="box11">ラウンド数
                 <label>
@@ -137,22 +137,8 @@ try {
         function jikou1() {
             document.getElementById("opponent").textContent = '自校';
         }
-
-        function check() {
-
-            if (document.forms['register'].elements['propchecker'].value == 0 && document.forms['register'].elements['oppchecker'].value == 0) {
-                window.alert("自校Aチーム,自校Bチームのように名前を分けて試合登録してください");
-                return false;
-
-            }
-            if (document.forms['register'].elements['propchecker'].value == 1 && document.forms['register'].elements['oppchecker'].value == 1 && document.forms['register'].elements['prop'].value == document.forms['register'].elements['opp'].value) {
-                window.alert("○○高校Aチーム,○○高校Bチームのように名前を分けて試合登録してください");
-                return false;
-
-            }
-        }
     </script>
-    <script src="./assets/js/double_submit.js"></script>
+    <script src="./assets/js/submission_optimizer.js"></script>
 
 </body>
 

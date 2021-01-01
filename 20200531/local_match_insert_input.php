@@ -86,7 +86,7 @@ try {
             });
         });
     </script>
-    <script src="./assets/js/double_submit.js"></script>
+    <script src="./assets/js/submission_optimizer.js"></script>
 </body>
 
 </html>
