@@ -4,13 +4,11 @@
         //    PDOクラスのインスタンスを生成する(エラーモードも同時にセット)
 
         $db = parse_url($_SERVER['CLEARDB_DATABASE_URL']);
-        $db['dbname'] = ltrim($db['path'], '/');
-        $dsn = "mysql:host={$db['host']};dbname={$db['dbname']};charset=utf8";
-        $user = $db['user'];
-        $password = $db['pass'];
+        $dsn = "mysql:host=us-cdbr-east-02.cleardb.com;dbname=heroku_2858d635cc9aeb1;charset=utf8";
+        $user = "b645e101b5c1cf";
+        $password = "8942a993";
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
         );
         $pdo = new PDO($dsn, $user, $password, $options);
 

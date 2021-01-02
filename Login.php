@@ -1,6 +1,6 @@
 <?php
 session_start();
-// require_once("./functions.php");
+require_once("./functions.php");
 //ログイン処理
 try {
   if (isset($_POST['id']) && isset($_POST['password'])) :
