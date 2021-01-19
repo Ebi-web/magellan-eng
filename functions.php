@@ -1,12 +1,14 @@
        <?php
-
+        $host = getenv("MYSQL_HOST");
+        $dbname = getenv("MYSQL_DATABASE");
+        $username = getenv("MYSQL_USER");
+        $passwd = getenv("MYSQL_PASSWORD");
         // 主要な変数群
         //    PDOクラスのインスタンスを生成する(エラーモードも同時にセット)
 
-        $db = parse_url($_SERVER['CLEARDB_DATABASE_URL']);
-        $dsn = "mysql:host=us-cdbr-east-02.cleardb.com;dbname=heroku_2858d635cc9aeb1;charset=utf8";
-        $user = "b645e101b5c1cf";
-        $password = "8942a993";
+        $dsn = "mysql:host=" . $host . ";dbname=" . $dbname . ";charset=utf8";
+        $user = $username;
+        $password = $passwd;
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         );
