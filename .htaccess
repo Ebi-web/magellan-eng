@@ -2,5 +2,5 @@ SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
 SetEnvIf Request_URI ".*" Ngx_Cache_AllCacheMode
 SetEnvIf Request_URI ".*" MYSQL_USER=ebitoshi_users
 SetEnvIf Request_URI ".*" MYSQL_PASSWORD="RhQ9AASr7a4y.f9"
-SetEnvIf Request_URI ".*" MYSQL_HOST=mysql12011.xserver.jp
+SetEnvIf Request_URI ".*" MYSQL_HOST=103.3.2.211
 SetEnvIf Request_URI ".*" MYSQL_DATABASE=ebitoshi_magellan
