@@ -158,7 +158,7 @@ try {
                                         <td>
                                             <a href='flowsheets/flowsheet.php?id=<?= $round1['id'] ?>&prop=<?= $round1['proposition'] ?>&opp=<?= $round1['opposition'] ?>&winner=<?= $round1['winner'] ?>&judges=<?= $round1['judges'] ?>'>
                                                 <?php if ($round1['opposition'] == 0) {
-                                                    $_SESSION['username'];
+                                                    echo $_SESSION['username'];
                                                 } else {
                                                     thirdparty($round1['opposition']);
                                                 } ?>
@@ -289,7 +289,8 @@ try {
                         <?php }
                             endforeach;
                         endif;
-                        ?> </tbody>
+                        ?>
+                        </tbody>
                     </table>
             </div>
             <div id="panel4" class="tab_panel" style="text-align: center;">
