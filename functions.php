@@ -1,8 +1,11 @@
        <?php
-        $host = getenv("MYSQL_HOST");
-        $dbname = getenv("MYSQL_DATABASE");
-        $username = getenv("MYSQL_USER");
-        $passwd = getenv("MYSQL_PASSWORD");
+        require __DIR__ . '/vendor/autoload.php';
+        require_once("./env.php");
+        $dotenv = new Dotenv();
+        $host = $dotenv->getenv("MYSQL_HOST");
+        $dbname = $dotenv->getenv("MYSQL_DATABASE");
+        $username = $dotenv->getenv("MYSQL_USER");
+        $passwd = $dotenv->getenv("MYSQL_PASSWORD");
         // 主要な変数群
         //    PDOクラスのインスタンスを生成する(エラーモードも同時にセット)
 
