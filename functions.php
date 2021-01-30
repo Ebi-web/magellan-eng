@@ -1,6 +1,10 @@
        <?php
         require __DIR__ . '/vendor/autoload.php';
-        require_once("./env.php");
+        if (include_once("./env.php")) {
+            include_once("./env.php");
+        } else {
+            include_once("../env.php");
+        }
         $dotenv = new Dotenv();
         $host = $dotenv->getenv("MYSQL_HOST");
         $dbname = $dotenv->getenv("MYSQL_DATABASE");
@@ -98,7 +102,7 @@
             $opp = null;
             $winner = null;
             validate_judge(); //ジャッジをバリデーション
-            validate_round(); //ラウンド数をバリデーション  
+            validate_round(); //ラウンド数をバリデーション
             httpHeaderInjection($_POST['judges']);
             switch ($flag):
                 case 0:
