@@ -1,10 +1,6 @@
        <?php
         require __DIR__ . '/vendor/autoload.php';
-        if (include_once("./env.php")) {
-            include_once("./env.php");
-        } else {
-            include_once("../env.php");
-        }
+        require_once(__DIR__ . "/env.php");
         $dotenv = new Dotenv();
         $host = $dotenv->getenv("MYSQL_HOST");
         $dbname = $dotenv->getenv("MYSQL_DATABASE");
